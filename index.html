@@ -21,7 +21,6 @@
             background-color: var(--bg-escuro);
             color: #f3f4f6;
             margin: 0;
-            /* overflow: hidden foi removido para permitir scroll natural no mobile */
         }
 
         h1, h2, h3, .fonte-titulo { font-family: 'Montserrat', sans-serif; }
@@ -78,7 +77,6 @@
             color: black;
         }
 
-        /* Animação Pulsação Desvinculada do Posicionamento */
         @keyframes pulsarLogo {
             0% { transform: scale(0.95); }
             50% { transform: scale(1.05); }
@@ -87,7 +85,6 @@
         .pulsar-1 { animation: pulsarLogo 4s ease-in-out infinite; }
         .pulsar-2 { animation: pulsarLogo 4s ease-in-out infinite; animation-delay: -2s; }
 
-        /* Animação Balanço VS Desvinculada do Posicionamento */
         @keyframes balancoLogo {
             0% { transform: rotate(-6deg); }
             100% { transform: rotate(6deg); }
@@ -107,11 +104,10 @@
         .notification.error { background-color: #DC2626; }
     </style>
 </head>
-<body class="flex flex-col lg:flex-row min-h-screen w-full overflow-x-hidden">
+<body class="flex flex-col landscape:flex-row min-h-screen w-full overflow-x-hidden">
 
     <!-- LADO ESQUERDO (Desktop) / INFERIOR (Mobile): TABELAS -->
-    <!-- order-3 no mobile joga pro fundo. order-1 no desktop joga pra esquerda -->
-    <div class="order-3 lg:order-1 w-full lg:w-2/5 h-auto lg:h-screen bg-gray-900 lg:border-r-2 border-t-2 lg:border-t-0 border-gray-700 flex flex-col p-4 z-30 shadow-xl">
+    <div class="order-3 landscape:order-1 w-full landscape:w-2/5 h-auto landscape:h-screen bg-gray-900 landscape:border-r-2 border-t-2 landscape:border-t-0 border-gray-700 flex flex-col p-4 z-30 shadow-xl">
         
         <!-- Cabeçalho -->
         <div class="flex items-center justify-between mb-4 pb-4 border-b border-gray-800">
@@ -127,10 +123,10 @@
         </div>
 
         <!-- Tabelas Container -->
-        <div class="flex flex-col gap-6 lg:gap-3 flex-grow lg:overflow-hidden lg:min-h-0">
+        <div class="flex flex-col gap-6 landscape:gap-3 flex-grow landscape:overflow-hidden landscape:min-h-0">
             
             <!-- Bloco Tabela JP -->
-            <div class="flex flex-col flex-none lg:flex-1 h-[400px] lg:h-auto lg:min-h-0">
+            <div class="flex flex-col flex-none landscape:flex-1 h-[400px] landscape:h-auto landscape:min-h-0">
                 <h2 class="text-xs font-bold bg-blue-800 text-white p-1.5 text-center rounded-t border border-blue-800 shrink-0">JOÃO PESSOA</h2>
                 
                 <div class="tabela-container rounded-t-none flex-1 overflow-y-auto min-h-0">
@@ -155,7 +151,7 @@
             </div>
 
             <!-- Bloco Tabela Patos -->
-            <div class="flex flex-col flex-none lg:flex-1 h-[400px] lg:h-auto lg:min-h-0">
+            <div class="flex flex-col flex-none landscape:flex-1 h-[400px] landscape:h-auto landscape:min-h-0">
                 <h2 class="text-xs font-bold bg-blue-800 text-white p-1.5 text-center rounded-t border border-blue-800 shrink-0">PATOS</h2>
                 
                 <div class="tabela-container rounded-t-none flex-1 overflow-y-auto min-h-0">
@@ -183,35 +179,31 @@
     </div>
 
     <!-- LADO DIREITO (Desktop) / SUPERIOR (Mobile): PAINEL VISUAL -->
-    <div class="order-1 lg:order-2 w-full lg:w-3/5 h-auto lg:h-screen flex flex-col lg:flex-row relative">
+    <div class="order-1 landscape:order-2 w-full landscape:w-3/5 h-auto landscape:h-screen flex flex-col landscape:flex-row relative">
         
         <!-- OVERLAY ABSOLUTO PARA OS ELEMENTOS CENTRAIS -->
         <div class="absolute inset-0 pointer-events-none z-20">
             
             <!-- VS Logo -->
-            <!-- Mobile: centralizado no meio da tela e ao lado do card. Desktop: centralizado no topo -->
-            <div class="absolute w-full flex justify-center top-1/2 -translate-y-1/2 lg:top-[30px] lg:translate-y-0 pr-32 lg:pr-0">
-                <img id="img-vs" src="" alt="VS" class="w-20 lg:w-[250px] pointer-events-auto balanco-logo">
+            <div class="absolute w-full flex justify-center top-1/2 -translate-y-1/2 landscape:top-[30px] landscape:translate-y-0 pr-32 landscape:pr-0">
+                <img id="img-vs" src="" alt="VS" class="w-20 landscape:w-[250px] pointer-events-auto balanco-logo">
             </div>
 
             <!-- Atingimento Box -->
-            <!-- Mobile: centralizado no meio da tela e ao lado do VS. Desktop: centralizado no rodapé -->
-            <div class="absolute w-full flex justify-center top-1/2 -translate-y-1/2 lg:top-auto lg:bottom-[15px] lg:translate-y-0 pl-32 lg:pl-0">
-                
-                <!-- O card em si: no mobile é menor (p-2, gap-2), no desktop volta ao tamanho original (p-3, gap-6) -->
-                <div class="caixa-central-inferior p-2 lg:p-[12px_30px] rounded flex flex-row items-center gap-2 lg:gap-[25px] pointer-events-auto">
+            <div class="absolute w-full flex justify-center top-1/2 -translate-y-1/2 landscape:top-auto landscape:bottom-[15px] landscape:translate-y-0 pl-32 landscape:pl-0">
+                <div class="caixa-central-inferior p-2 landscape:p-[12px_30px] rounded flex flex-row items-center gap-2 landscape:gap-[25px] pointer-events-auto">
                     <div class="flex flex-col items-center">
-                        <img id="logo-nordil-rodape" src="" alt="Nordil" class="h-5 lg:h-8 mb-0.5">
-                        <p class="font-black text-[9px] lg:text-lg whitespace-nowrap">2025 vs. 2026</p>
+                        <img id="logo-nordil-rodape" src="" alt="Nordil" class="h-5 landscape:h-8 mb-0.5">
+                        <p class="font-black text-[9px] landscape:text-lg whitespace-nowrap">2025 vs. 2026</p>
                     </div>
                     
-                    <div class="h-12 lg:h-20 w-px bg-gray-300 mx-0.5 lg:mx-1"></div>
+                    <div class="h-12 landscape:h-20 w-px bg-gray-300 mx-0.5 landscape:mx-1"></div>
                     
                     <div class="flex flex-col items-center">
-                        <div id="grafico-rosca" class="donut-chart w-10 h-10 lg:w-[100px] lg:h-[100px]" style="--porcentagem: 0%;">
-                            <div class="donut-inner w-7 h-7 lg:w-[75px] lg:h-[75px] text-[9px] lg:text-2xl" id="val-porcentagem">0%</div>
+                        <div id="grafico-rosca" class="donut-chart w-10 h-10 landscape:w-[100px] landscape:h-[100px]" style="--porcentagem: 0%;">
+                            <div class="donut-inner w-7 h-7 landscape:w-[75px] landscape:h-[75px] text-[9px] landscape:text-2xl" id="val-porcentagem">0%</div>
                         </div>
-                        <span class="text-[7px] lg:text-xs font-bold mt-0.5 lg:mt-1 text-gray-500 uppercase">Atingimento</span>
+                        <span class="text-[7px] landscape:text-xs font-bold mt-0.5 landscape:mt-1 text-gray-500 uppercase">Atingimento</span>
                     </div>
                 </div>
             </div>
@@ -219,78 +211,78 @@
         </div>
 
         <!-- LADO ATUAL (2026) -->
-        <div class="w-full lg:w-1/2 h-[45vh] lg:h-full bg-[#3133D1] border-b-[3px] lg:border-b-0 lg:border-r-[3px] border-black flex flex-row lg:flex-col items-center justify-between lg:justify-center p-4 relative pb-10 lg:pb-4">
+        <div class="w-full landscape:w-1/2 h-[45vh] landscape:h-full bg-[#3133D1] border-b-[3px] landscape:border-b-0 landscape:border-r-[3px] border-black flex flex-row landscape:flex-col items-center justify-between landscape:justify-center p-4 relative pb-10 landscape:pb-4">
             
             <!-- Imagem Container -->
-            <div class="w-1/3 lg:w-auto lg:absolute lg:left-6 lg:top-1/2 lg:-translate-y-1/2 flex justify-center">
-                <img id="img-2026" src="" alt="Arte Atual" class="max-h-[35vh] lg:max-h-[25vh] object-contain pulsar-1">
+            <div class="w-1/3 landscape:w-auto landscape:absolute landscape:left-6 landscape:top-1/2 landscape:-translate-y-1/2 flex justify-center">
+                <img id="img-2026" src="" alt="Arte Atual" class="max-h-[35vh] landscape:max-h-[50vh] object-contain pulsar-1">
             </div>
             
             <!-- Textos Container -->
-            <div class="w-2/3 lg:w-52 lg:ml-auto lg:mr-12 text-center z-10 pl-2 lg:pl-0">
-                <h1 class="text-2xl lg:text-3xl fonte-titulo mb-1 text-white">2026</h1>
-                <h2 id="data-2026" class="text-sm lg:text-xl font-bold mb-4 text-white">DIA ATUAL</h2>
+            <div class="w-2/3 landscape:w-52 landscape:ml-auto landscape:mr-12 text-center z-10 pl-2 landscape:pl-0">
+                <h1 class="text-2xl landscape:text-3xl fonte-titulo mb-1 text-white">2026</h1>
+                <h2 id="data-2026" class="text-sm landscape:text-xl font-bold mb-4 text-white">DIA ATUAL</h2>
                 
-                <div class="flex flex-col gap-2 lg:gap-3 mb-4">
+                <div class="flex flex-col gap-2 landscape:gap-3 mb-4">
                     <div class="w-full">
-                        <p class="font-bold text-[9px] lg:text-[10px] mb-1 uppercase tracking-wider text-white text-left">J. PESSOA</p>
-                        <div class="valor-box w-full flex justify-between px-2 lg:px-[10px]">
-                            <span class="text-[10px] lg:text-xs mt-1">R$</span>
-                            <span id="val-jp-2026" class="text-sm lg:text-base">0,00</span>
+                        <p class="font-bold text-[9px] landscape:text-[10px] mb-1 uppercase tracking-wider text-white text-left">J. PESSOA</p>
+                        <div class="valor-box w-full flex justify-between px-2 landscape:px-[10px]">
+                            <span class="text-[10px] landscape:text-xs mt-1">R$</span>
+                            <span id="val-jp-2026" class="text-sm landscape:text-base">0,00</span>
                         </div>
                     </div>
                     <div class="w-full">
-                        <p class="font-bold text-[9px] lg:text-[10px] mb-1 uppercase tracking-wider text-white text-left">PATOS</p>
-                        <div class="valor-box w-full flex justify-between px-2 lg:px-[10px]">
-                            <span class="text-[10px] lg:text-xs mt-1">R$</span>
-                            <span id="val-pt-2026" class="text-sm lg:text-base">0,00</span>
+                        <p class="font-bold text-[9px] landscape:text-[10px] mb-1 uppercase tracking-wider text-white text-left">PATOS</p>
+                        <div class="valor-box w-full flex justify-between px-2 landscape:px-[10px]">
+                            <span class="text-[10px] landscape:text-xs mt-1">R$</span>
+                            <span id="val-pt-2026" class="text-sm landscape:text-base">0,00</span>
                         </div>
                     </div>
                 </div>
                 
-                <h1 class="text-lg lg:text-xl fonte-titulo mt-4 lg:mt-6 mb-1 lg:mb-2 text-white">TOTAL 2026</h1>
-                <div class="valor-box w-full text-center flex justify-center py-1 lg:py-2 bg-yellow-400 border border-yellow-500">
-                    <span class="mr-1 font-bold mt-1 text-[10px] lg:text-xs">R$</span>
-                    <span id="total-2026" class="font-black text-base lg:text-lg">0,00</span>
+                <h1 class="text-lg landscape:text-xl fonte-titulo mt-4 landscape:mt-6 mb-1 landscape:mb-2 text-white">TOTAL 2026</h1>
+                <div class="valor-box w-full text-center flex justify-center py-1 landscape:py-2 bg-yellow-400 border border-yellow-500">
+                    <span class="mr-1 font-bold mt-1 text-[10px] landscape:text-xs">R$</span>
+                    <span id="total-2026" class="font-black text-base landscape:text-lg">0,00</span>
                 </div>
             </div>
         </div>
 
         <!-- LADO HISTÓRICO (2025) -->
-        <div class="w-full lg:w-1/2 h-[45vh] lg:h-full bg-[#55793F] flex flex-row lg:flex-col items-center justify-between lg:justify-center p-4 relative pt-10 lg:pt-4">
+        <div class="w-full landscape:w-1/2 h-[45vh] landscape:h-full bg-[#55793F] flex flex-row landscape:flex-col items-center justify-between landscape:justify-center p-4 relative pt-10 landscape:pt-4">
             
             <!-- Textos Container -->
-            <div class="w-2/3 lg:w-52 lg:mr-auto lg:ml-12 text-center z-10 pr-2 lg:pr-0">
-                <h1 class="text-2xl lg:text-3xl fonte-titulo mb-1 text-white">2025</h1>
-                <h2 class="text-sm lg:text-xl font-bold mb-4 text-white">08/mai</h2>
+            <div class="w-2/3 landscape:w-52 landscape:mr-auto landscape:ml-12 text-center z-10 pr-2 landscape:pr-0">
+                <h1 class="text-2xl landscape:text-3xl fonte-titulo mb-1 text-white">2025</h1>
+                <h2 class="text-sm landscape:text-xl font-bold mb-4 text-white">08/mai</h2>
                 
-                <div class="flex flex-col gap-2 lg:gap-3 mb-4">
+                <div class="flex flex-col gap-2 landscape:gap-3 mb-4">
                     <div class="w-full">
-                        <p class="font-bold text-[9px] lg:text-[10px] mb-1 uppercase tracking-wider text-white text-left">J. PESSOA</p>
-                        <div class="valor-box w-full flex justify-between px-2 lg:px-[10px]">
-                            <span class="text-[10px] lg:text-xs mt-1">R$</span>
-                            <span id="val-jp-2025" class="text-sm lg:text-base">2.333.750,57</span>
+                        <p class="font-bold text-[9px] landscape:text-[10px] mb-1 uppercase tracking-wider text-white text-left">J. PESSOA</p>
+                        <div class="valor-box w-full flex justify-between px-2 landscape:px-[10px]">
+                            <span class="text-[10px] landscape:text-xs mt-1">R$</span>
+                            <span id="val-jp-2025" class="text-sm landscape:text-base">2.333.750,57</span>
                         </div>
                     </div>
                     <div class="w-full">
-                        <p class="font-bold text-[9px] lg:text-[10px] mb-1 uppercase tracking-wider text-white text-left">PATOS</p>
-                        <div class="valor-box w-full flex justify-between px-2 lg:px-[10px]">
-                            <span class="text-[10px] lg:text-xs mt-1">R$</span>
-                            <span id="val-pt-2025" class="text-sm lg:text-base">668.123,54</span>
+                        <p class="font-bold text-[9px] landscape:text-[10px] mb-1 uppercase tracking-wider text-white text-left">PATOS</p>
+                        <div class="valor-box w-full flex justify-between px-2 landscape:px-[10px]">
+                            <span class="text-[10px] landscape:text-xs mt-1">R$</span>
+                            <span id="val-pt-2025" class="text-sm landscape:text-base">668.123,54</span>
                         </div>
                     </div>
                 </div>
                 
-                <h1 class="text-lg lg:text-xl fonte-titulo mt-4 lg:mt-6 mb-1 lg:mb-2 text-white">TOTAL 2025</h1>
-                <div class="valor-box w-full text-center flex justify-center py-1 lg:py-2">
-                    <span class="mr-1 font-bold mt-1 text-[10px] lg:text-xs">R$</span>
-                    <span id="total-2025" class="font-black text-base lg:text-lg">3.001.874,11</span>
+                <h1 class="text-lg landscape:text-xl fonte-titulo mt-4 landscape:mt-6 mb-1 landscape:mb-2 text-white">TOTAL 2025</h1>
+                <div class="valor-box w-full text-center flex justify-center py-1 landscape:py-2">
+                    <span class="mr-1 font-bold mt-1 text-[10px] landscape:text-xs">R$</span>
+                    <span id="total-2025" class="font-black text-base landscape:text-lg">3.001.874,11</span>
                 </div>
             </div>
 
             <!-- Imagem Container -->
-            <div class="w-1/3 lg:w-auto lg:absolute lg:right-6 lg:top-1/2 lg:-translate-y-1/2 flex justify-center">
-                <img id="img-2025" src="" alt="Arte Histórico" class="max-h-[35vh] lg:max-h-[25vh] object-contain pulsar-2">
+            <div class="w-1/3 landscape:w-auto landscape:absolute landscape:right-6 landscape:top-1/2 landscape:-translate-y-1/2 flex justify-center">
+                <img id="img-2025" src="" alt="Arte Histórico" class="max-h-[35vh] landscape:max-h-[50vh] object-contain pulsar-2">
             </div>
         </div>
     </div>
