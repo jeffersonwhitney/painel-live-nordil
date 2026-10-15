@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Integrado</title>
+    <title>Dashboard Integrado Nordil</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
@@ -12,8 +12,6 @@
             --azul-nordil: #0072B9;
             --amarelo-nordil: #FFD123;
             --vermelho-nordil: #F23035;
-            --azul-painel: #3133D1;
-            --verde-painel: #55793F;
             --bg-escuro: #111827;
             --bg-card: #1F2937;
         }
@@ -23,7 +21,7 @@
             background-color: var(--bg-escuro);
             color: #f3f4f6;
             margin: 0;
-            overflow: hidden;
+            /* overflow: hidden foi removido para permitir scroll natural no mobile */
         }
 
         h1, h2, h3, .fonte-titulo { font-family: 'Montserrat', sans-serif; }
@@ -34,8 +32,6 @@
         ::-webkit-scrollbar-thumb:hover { background: var(--azul-nordil); }
 
         .tabela-container {
-            flex-grow: 1;
-            overflow-y: auto;
             background: var(--bg-card);
             border-radius: 0.5rem;
             border: 1px solid #374151;
@@ -63,85 +59,43 @@
         .fonte-titulo { font-weight: 900; letter-spacing: 1px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
 
         .caixa-central-inferior {
-            position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
             background: white; 
-            padding: 12px 30px; /* Aumentado de 8px 20px */
             border: 3px solid black;
-            display: flex; align-items: center; 
-            gap: 25px; /* Aumentado de 15px para afastar a logo do gráfico */
-            z-index: 20;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.5); color: black;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5); 
+            color: black;
         }
 
         .donut-chart {
-            width: 100px; /* Aumentado de 70px */
-            height: 100px; /* Aumentado de 70px */
             border-radius: 50%;
             background: conic-gradient(#00C853 0% var(--porcentagem), #E5E7EB var(--porcentagem) 100%);
             display: flex; align-items: center; justify-content: center; position: relative;
         }
 
         .donut-inner {
-            width: 75px; /* Aumentado de 50px */
-            height: 75px; /* Aumentado de 50px */
             background-color: white; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-weight: 900; 
-            font-size: 1.5rem; /* Aumentado de 1.1rem */
             color: black;
         }
 
-                /* Definição do ciclo de pulsação (variação de 0.95 a 1.05) */
+        /* Animação Pulsação Desvinculada do Posicionamento */
         @keyframes pulsarLogo {
-            0% {
-                transform: translateY(-50%) scale(0.95);
-            }
-            50% {
-                transform: translateY(-50%) scale(1.05);
-            }
-            100% {
-                transform: translateY(-50%) scale(0.95);
-            }
+            0% { transform: scale(0.95); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(0.95); }
         }
+        .pulsar-1 { animation: pulsarLogo 4s ease-in-out infinite; }
+        .pulsar-2 { animation: pulsarLogo 4s ease-in-out infinite; animation-delay: -2s; }
 
-        /* Aplicação na logo de 2026 */
-        #img-2026 {
-            animation: pulsarLogo 4s ease-in-out infinite;
-            transform-origin: center center;
-        }
-
-        /* Aplicação na logo de 2025 (defasada em 180°) */
-        #img-2025 {
-            animation: pulsarLogo 4s ease-in-out infinite;
-            animation-delay: -2s; /* Metade de 4s cria a oposição de fase exata e sem atraso inicial */
-            transform-origin: center center;
-        }
-
-        /* Atualize a classe existente */
-        .logo-vs {
-            position: absolute; 
-            top: 30px; 
-            left: 50%; 
-            width: 250px; 
-            z-index: 20; 
-            filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.5));
-            
-            /* Animação suave e contínua: 4 segundos de ciclo */
-            animation: balancoLogo 4s ease-in-out infinite alternate;
-            transform-origin: center center;
-        }
-
-        /* Definição do movimento de inclinação */
+        /* Animação Balanço VS Desvinculada do Posicionamento */
         @keyframes balancoLogo {
-            0% {
-                transform: translateX(-50%) rotate(-6deg);
-            }
-            100% {
-                transform: translateX(-50%) rotate(6deg);
-            }
+            0% { transform: rotate(-6deg); }
+            100% { transform: rotate(6deg); }
         }
-
-        .img-lateral { max-width: 30%; max-height: 70vh; object-fit: contain; }
+        .balanco-logo {
+            animation: balancoLogo 4s ease-in-out infinite alternate;
+            filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.5));
+        }
 
         .notification {
             position: fixed; top: 15px; right: 15px; padding: 10px 20px; border-radius: 4px;
@@ -153,10 +107,11 @@
         .notification.error { background-color: #DC2626; }
     </style>
 </head>
-<body class="flex h-screen w-screen">
+<body class="flex flex-col lg:flex-row min-h-screen w-full overflow-x-hidden">
 
-    <!-- LADO ESQUERDO: TABELAS (40%) -->
-    <div class="w-2/5 h-full bg-gray-900 border-r-2 border-gray-700 flex flex-col p-4 z-30 shadow-xl">
+    <!-- LADO ESQUERDO (Desktop) / INFERIOR (Mobile): TABELAS -->
+    <!-- order-3 no mobile joga pro fundo. order-1 no desktop joga pra esquerda -->
+    <div class="order-3 lg:order-1 w-full lg:w-2/5 h-auto lg:h-screen bg-gray-900 lg:border-r-2 border-t-2 lg:border-t-0 border-gray-700 flex flex-col p-4 z-30 shadow-xl">
         
         <!-- Cabeçalho -->
         <div class="flex items-center justify-between mb-4 pb-4 border-b border-gray-800">
@@ -171,11 +126,11 @@
             </div>
         </div>
 
-        <!-- Tabelas Container (Usando min-h-0 para garantir que o flex não estoure) -->
-        <div class="flex flex-col gap-3 flex-grow overflow-hidden min-h-0">
+        <!-- Tabelas Container -->
+        <div class="flex flex-col gap-6 lg:gap-3 flex-grow lg:overflow-hidden lg:min-h-0">
             
-            <!-- Bloco Tabela JP (Usa flex-1 para ocupar exatamente 50% do espaço disponível) -->
-            <div class="flex flex-col flex-1 min-h-0">
+            <!-- Bloco Tabela JP -->
+            <div class="flex flex-col flex-none lg:flex-1 h-[400px] lg:h-auto lg:min-h-0">
                 <h2 class="text-xs font-bold bg-blue-800 text-white p-1.5 text-center rounded-t border border-blue-800 shrink-0">JOÃO PESSOA</h2>
                 
                 <div class="tabela-container rounded-t-none flex-1 overflow-y-auto min-h-0">
@@ -199,8 +154,8 @@
                 </div>
             </div>
 
-            <!-- Bloco Tabela Patos (Usa flex-1 para ocupar os outros 50%) -->
-            <div class="flex flex-col flex-1 min-h-0">
+            <!-- Bloco Tabela Patos -->
+            <div class="flex flex-col flex-none lg:flex-1 h-[400px] lg:h-auto lg:min-h-0">
                 <h2 class="text-xs font-bold bg-blue-800 text-white p-1.5 text-center rounded-t border border-blue-800 shrink-0">PATOS</h2>
                 
                 <div class="tabela-container rounded-t-none flex-1 overflow-y-auto min-h-0">
@@ -227,96 +182,117 @@
         </div>
     </div>
 
-    <!-- LADO DIREITO: PAINEL VISUAL 2026 vs 2025 (60%) -->
-    <div class="w-3/5 h-full flex relative">
-        <img id="img-vs" src="" alt="VS" class="logo-vs">
+    <!-- LADO DIREITO (Desktop) / SUPERIOR (Mobile): PAINEL VISUAL -->
+    <div class="order-1 lg:order-2 w-full lg:w-3/5 h-auto lg:h-screen flex flex-col lg:flex-row relative">
+        
+        <!-- OVERLAY ABSOLUTO PARA OS ELEMENTOS CENTRAIS -->
+        <div class="absolute inset-0 pointer-events-none z-20">
+            
+            <!-- VS Logo -->
+            <!-- Mobile: centralizado no meio da tela e ao lado do card. Desktop: centralizado no topo -->
+            <div class="absolute w-full flex justify-center top-1/2 -translate-y-1/2 lg:top-[30px] lg:translate-y-0 pr-32 lg:pr-0">
+                <img id="img-vs" src="" alt="VS" class="w-20 lg:w-[250px] pointer-events-auto balanco-logo">
+            </div>
+
+            <!-- Atingimento Box -->
+            <!-- Mobile: centralizado no meio da tela e ao lado do VS. Desktop: centralizado no rodapé -->
+            <div class="absolute w-full flex justify-center top-1/2 -translate-y-1/2 lg:top-auto lg:bottom-[15px] lg:translate-y-0 pl-32 lg:pl-0">
+                
+                <!-- O card em si: no mobile é menor (p-2, gap-2), no desktop volta ao tamanho original (p-3, gap-6) -->
+                <div class="caixa-central-inferior p-2 lg:p-[12px_30px] rounded flex flex-row items-center gap-2 lg:gap-[25px] pointer-events-auto">
+                    <div class="flex flex-col items-center">
+                        <img id="logo-nordil-rodape" src="" alt="Nordil" class="h-5 lg:h-8 mb-0.5">
+                        <p class="font-black text-[9px] lg:text-lg whitespace-nowrap">2025 vs. 2026</p>
+                    </div>
+                    
+                    <div class="h-12 lg:h-20 w-px bg-gray-300 mx-0.5 lg:mx-1"></div>
+                    
+                    <div class="flex flex-col items-center">
+                        <div id="grafico-rosca" class="donut-chart w-10 h-10 lg:w-[100px] lg:h-[100px]" style="--porcentagem: 0%;">
+                            <div class="donut-inner w-7 h-7 lg:w-[75px] lg:h-[75px] text-[9px] lg:text-2xl" id="val-porcentagem">0%</div>
+                        </div>
+                        <span class="text-[7px] lg:text-xs font-bold mt-0.5 lg:mt-1 text-gray-500 uppercase">Atingimento</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
         <!-- LADO ATUAL (2026) -->
-        <div class="w-1/2 h-full bg-[#3133D1] relative flex flex-col justify-center border-r-[3px] border-black">
-            <img id="img-2026" src="" alt="Arte Atual" class="absolute left-6 top-1/2 -translate-y-1/2 img-lateral">
+        <div class="w-full lg:w-1/2 h-[45vh] lg:h-full bg-[#3133D1] border-b-[3px] lg:border-b-0 lg:border-r-[3px] border-black flex flex-row lg:flex-col items-center justify-between lg:justify-center p-4 relative pb-10 lg:pb-4">
             
-            <div class="ml-auto mr-12 text-center w-52 z-10">
-                <h1 class="text-3xl fonte-titulo mb-1 text-white">2026</h1>
-                <h2 id="data-2026" class="text-xl font-bold mb-4 text-white">DIA ATUAL</h2>
+            <!-- Imagem Container -->
+            <div class="w-1/3 lg:w-auto lg:absolute lg:left-6 lg:top-1/2 lg:-translate-y-1/2 flex justify-center">
+                <img id="img-2026" src="" alt="Arte Atual" class="max-h-[35vh] lg:max-h-[25vh] object-contain pulsar-1">
+            </div>
+            
+            <!-- Textos Container -->
+            <div class="w-2/3 lg:w-52 lg:ml-auto lg:mr-12 text-center z-10 pl-2 lg:pl-0">
+                <h1 class="text-2xl lg:text-3xl fonte-titulo mb-1 text-white">2026</h1>
+                <h2 id="data-2026" class="text-sm lg:text-xl font-bold mb-4 text-white">DIA ATUAL</h2>
                 
-                <div class="flex flex-col gap-3 mb-4">
+                <div class="flex flex-col gap-2 lg:gap-3 mb-4">
                     <div class="w-full">
-                        <p class="font-bold text-[10px] mb-1 uppercase tracking-wider text-white text-left">J. PESSOA</p>
-                        <div class="valor-box w-full flex justify-between">
-                            <span class="text-xs mt-1">R$</span>
-                            <span id="val-jp-2026">0,00</span>
+                        <p class="font-bold text-[9px] lg:text-[10px] mb-1 uppercase tracking-wider text-white text-left">J. PESSOA</p>
+                        <div class="valor-box w-full flex justify-between px-2 lg:px-[10px]">
+                            <span class="text-[10px] lg:text-xs mt-1">R$</span>
+                            <span id="val-jp-2026" class="text-sm lg:text-base">0,00</span>
                         </div>
                     </div>
                     <div class="w-full">
-                        <p class="font-bold text-[10px] mb-1 uppercase tracking-wider text-white text-left">PATOS</p>
-                        <div class="valor-box w-full flex justify-between">
-                            <span class="text-xs mt-1">R$</span>
-                            <span id="val-pt-2026">0,00</span>
+                        <p class="font-bold text-[9px] lg:text-[10px] mb-1 uppercase tracking-wider text-white text-left">PATOS</p>
+                        <div class="valor-box w-full flex justify-between px-2 lg:px-[10px]">
+                            <span class="text-[10px] lg:text-xs mt-1">R$</span>
+                            <span id="val-pt-2026" class="text-sm lg:text-base">0,00</span>
                         </div>
                     </div>
                 </div>
                 
-                <h1 class="text-xl fonte-titulo mt-6 mb-2 text-white">TOTAL 2026</h1>
-                <div class="valor-box w-full text-center text-lg flex justify-center py-2 bg-yellow-400 border border-yellow-500">
-                    <span class="mr-1 font-bold mt-1 text-xs">R$</span>
-                    <span id="total-2026" class="font-black">0,00</span>
+                <h1 class="text-lg lg:text-xl fonte-titulo mt-4 lg:mt-6 mb-1 lg:mb-2 text-white">TOTAL 2026</h1>
+                <div class="valor-box w-full text-center flex justify-center py-1 lg:py-2 bg-yellow-400 border border-yellow-500">
+                    <span class="mr-1 font-bold mt-1 text-[10px] lg:text-xs">R$</span>
+                    <span id="total-2026" class="font-black text-base lg:text-lg">0,00</span>
                 </div>
             </div>
         </div>
 
         <!-- LADO HISTÓRICO (2025) -->
-        <div class="w-1/2 h-full bg-[#55793F] relative flex flex-col justify-center">
-            <img id="img-2025" src="" alt="Arte Histórico" class="absolute right-6 top-1/2 -translate-y-1/2 img-lateral">
+        <div class="w-full lg:w-1/2 h-[45vh] lg:h-full bg-[#55793F] flex flex-row lg:flex-col items-center justify-between lg:justify-center p-4 relative pt-10 lg:pt-4">
             
-            <div class="mr-auto ml-12 text-center w-52 z-10">
-                <h1 class="text-3xl fonte-titulo mb-1 text-white">2025</h1>
-                <h2 class="text-xl font-bold mb-4 text-white">08/mai</h2>
+            <!-- Textos Container -->
+            <div class="w-2/3 lg:w-52 lg:mr-auto lg:ml-12 text-center z-10 pr-2 lg:pr-0">
+                <h1 class="text-2xl lg:text-3xl fonte-titulo mb-1 text-white">2025</h1>
+                <h2 class="text-sm lg:text-xl font-bold mb-4 text-white">08/mai</h2>
                 
-                <div class="flex flex-col gap-3 mb-4">
+                <div class="flex flex-col gap-2 lg:gap-3 mb-4">
                     <div class="w-full">
-                        <p class="font-bold text-[10px] mb-1 uppercase tracking-wider text-white text-left">J. PESSOA</p>
-                        <div class="valor-box w-full flex justify-between">
-                            <span class="text-xs mt-1">R$</span>
-                            <span id="val-jp-2025">2.333.750,57</span>
+                        <p class="font-bold text-[9px] lg:text-[10px] mb-1 uppercase tracking-wider text-white text-left">J. PESSOA</p>
+                        <div class="valor-box w-full flex justify-between px-2 lg:px-[10px]">
+                            <span class="text-[10px] lg:text-xs mt-1">R$</span>
+                            <span id="val-jp-2025" class="text-sm lg:text-base">2.333.750,57</span>
                         </div>
                     </div>
                     <div class="w-full">
-                        <p class="font-bold text-[10px] mb-1 uppercase tracking-wider text-white text-left">PATOS</p>
-                        <div class="valor-box w-full flex justify-between">
-                            <span class="text-xs mt-1">R$</span>
-                            <span id="val-pt-2025">668.123,54</span>
+                        <p class="font-bold text-[9px] lg:text-[10px] mb-1 uppercase tracking-wider text-white text-left">PATOS</p>
+                        <div class="valor-box w-full flex justify-between px-2 lg:px-[10px]">
+                            <span class="text-[10px] lg:text-xs mt-1">R$</span>
+                            <span id="val-pt-2025" class="text-sm lg:text-base">668.123,54</span>
                         </div>
                     </div>
                 </div>
                 
-                <h1 class="text-xl fonte-titulo mt-6 mb-2 text-white">TOTAL 2025</h1>
-                <div class="valor-box w-full text-center text-lg flex justify-center py-2">
-                    <span class="mr-1 font-bold mt-1 text-xs">R$</span>
-                    <span id="total-2025" class="font-black">3.001.874,11</span>
+                <h1 class="text-lg lg:text-xl fonte-titulo mt-4 lg:mt-6 mb-1 lg:mb-2 text-white">TOTAL 2025</h1>
+                <div class="valor-box w-full text-center flex justify-center py-1 lg:py-2">
+                    <span class="mr-1 font-bold mt-1 text-[10px] lg:text-xs">R$</span>
+                    <span id="total-2025" class="font-black text-base lg:text-lg">3.001.874,11</span>
                 </div>
             </div>
-        </div>
 
-            <!-- CAIXA CENTRAL INFERIOR (Gráfico de Atingimento) -->
-    <div class="caixa-central-inferior rounded">
-        <div class="flex flex-col items-center">
-            <!-- Aumente a logo h-6 para h-8 ou h-10 -->
-            <img id="logo-nordil-rodape" src="" alt="Nordil" class="h-8 mb-1">
-            <!-- Aumente o texto text-sm para text-lg -->
-            <p class="font-black text-lg whitespace-nowrap">2025 vs. 2026</p>
-        </div>
-        
-        <!-- Aumente a altura da linha divisória de h-12 para h-16 ou h-20 -->
-        <div class="h-20 w-px bg-gray-300 mx-1"></div>
-        
-        <div class="flex flex-col items-center">
-            <div id="grafico-rosca" class="donut-chart" style="--porcentagem: 0%;">
-                <div class="donut-inner" id="val-porcentagem">0%</div>
+            <!-- Imagem Container -->
+            <div class="w-1/3 lg:w-auto lg:absolute lg:right-6 lg:top-1/2 lg:-translate-y-1/2 flex justify-center">
+                <img id="img-2025" src="" alt="Arte Histórico" class="max-h-[35vh] lg:max-h-[25vh] object-contain pulsar-2">
             </div>
-            <!-- Aumente a fonte de text-[9px] para text-xs ou text-sm -->
-            <span class="text-xs font-bold mt-1 text-gray-500 uppercase">Atingimento</span>
         </div>
-    </div>
     </div>
 
     <!-- Notificação -->
@@ -327,8 +303,7 @@
         // 1. CONFIGURAÇÕES PRINCIPAIS
         // =========================================================================
         
-        // TEMPO PARA ATUALIZAR A PÁGINA AUTOMATICAMENTE (EM SEGUNDOS)
-        const TEMPO_ATUALIZACAO_SEGUNDOS = 300; // Exemplo: 300 segundos = 5 minutos
+        const TEMPO_ATUALIZACAO_SEGUNDOS = 300; 
         
         const LINKS_PLANILHAS = {
             jp: 'https://docs.google.com/spreadsheets/d/1Md8FmjMxuPWi7_kCk3tAcZkDg1NKbb2P/export?format=csv',
@@ -344,14 +319,12 @@
 
         const TOTAL_HISTORICO_2025 = 3001874.11;
 
-        // Aplicação das Imagens no DOM
         document.getElementById('img-2026').src = LINKS_IMAGENS.imagem2026;
         document.getElementById('img-2025').src = LINKS_IMAGENS.imagem2025;
         document.getElementById('img-vs').src = LINKS_IMAGENS.iconeVS;
         document.getElementById('logo-nordil-header').src = LINKS_IMAGENS.logoNordil;
         document.getElementById('logo-nordil-rodape').src = LINKS_IMAGENS.logoNordil;
 
-        // Variáveis Globais de Dados
         let dadosJP = [];
         let dadosPT = [];
         let tempoRestante = TEMPO_ATUALIZACAO_SEGUNDOS;
@@ -407,12 +380,11 @@
             document.getElementById('data-2026').textContent = dataStr;
         }
 
-        // Processa Array 2D do CSV extraindo Código, Supervisor e Transmissão
         function processCSVRows(rows, prefix) {
             const result = [];
             let supervisorIndex = -1;
             const codigoIndex = 0;
-            const valorIndex = 10; // Presumindo Coluna K (11ª coluna)
+            const valorIndex = 10; 
             
             for (let i = 0; i < Math.min(5, rows.length); i++) {
                 if (!rows[i]) continue;
@@ -523,7 +495,6 @@
 
         async function buscarDadosPlanilhas() {
             try {
-                // Tenta buscar João Pessoa
                 if(LINKS_PLANILHAS.jp && LINKS_PLANILHAS.jp.includes('http')) {
                     const csvJP = await fetchCSV(LINKS_PLANILHAS.jp);
                     dadosJP = processCSVRows(csvJP, 'JP');
@@ -532,7 +503,6 @@
                     console.warn("URL CSV de João Pessoa não configurada corretamente.");
                 }
 
-                // Tenta buscar Patos
                 if(LINKS_PLANILHAS.pt && LINKS_PLANILHAS.pt.includes('http')) {
                     const csvPT = await fetchCSV(LINKS_PLANILHAS.pt);
                     dadosPT = processCSVRows(csvPT, 'PT');
@@ -550,7 +520,6 @@
             }
         }
 
-        // Inicia o fluxo assim que a janela carrega
         window.onload = () => {
             buscarDadosPlanilhas();
             iniciarTimer();
